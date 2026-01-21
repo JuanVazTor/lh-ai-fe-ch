@@ -15,17 +15,6 @@ export function BriefViewer({
     return brief.verificationResults.find((r) => r.citationId === citationId);
   };
 
-  const getSeverityColor = (severity: string): string => {
-    switch (severity) {
-      case 'critical':
-        return 'red';
-      case 'warning':
-        return 'yellow';
-      default:
-        return 'lightgreen';
-    }
-  };
-
   const renderContent = () => {
     const content = brief.content;
     const parts: React.ReactNode[] = [];
@@ -48,18 +37,26 @@ export function BriefViewer({
         const isSelected = selectedCitationId === citation.id;
 
         parts.push(
-          <span
-            key={citation.id}
-            onClick={() => result && onCitationClick(citation, result)}
-            style={{
-              backgroundColor: getSeverityColor(severity),
-              padding: '2px 4px',
-              cursor: 'pointer',
-              border: isSelected ? '2px solid black' : 'none',
-            }}
-          >
-            {citation.text}
-          </span>
+            <button
+              type="button"
+              onClick={() => result && onCitationClick(citation, result)}
+              className={`
+                inline-flex items-center rounded-md px-1.5 py-0.5 text-sm font-medium
+                transition-colors duration-150
+                focus:outline-none focus:ring-2 focus:ring-offset-1
+                ${
+                  severity === 'critical'
+                    ? 'bg-red-100 text-red-800 hover:bg-red-200 focus:ring-red-400'
+                    : severity === 'warning'
+                    ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 focus:ring-yellow-400'
+                    : 'bg-green-100 text-green-800 hover:bg-green-200 focus:ring-green-400'
+                }
+                ${isSelected ? 'ring-2 ring-slate-900 ring-offset-1' : ''}
+              `}
+            >
+              {citation.text}
+            </button>
+
         );
       }
 
@@ -74,9 +71,9 @@ export function BriefViewer({
   };
 
   return (
-    <div>
-      <h1>{brief.title}</h1>
-      <div style={{ whiteSpace: 'pre-wrap' }}>{renderContent()}</div>
+    <div className="mb-4">
+      <h1 className="text-xl font-semibold text-slate-900 tracking-tight">{brief.title}</h1>
+      <div className="whitespace-pre-wrap">{renderContent()}</div>
     </div>
   );
 }
