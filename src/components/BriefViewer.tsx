@@ -32,6 +32,30 @@ export function BriefViewer({
       <div className="prose prose-slate max-w-none">
         <ReactMarkdown
           components={{
+            h1: ({ children }) => (
+              <h1 className="mt-12 mb-4 text-2xl font-semibold text-slate-900 tracking-tight">
+                {children}
+              </h1>
+            ),
+
+            h2: ({ children }) => (
+              <h2 className="mt-10 mb-3 text-xl font-semibold text-slate-900 tracking-tight">
+                {children}
+              </h2>
+            ),
+
+            h3: ({ children }) => (
+              <h3 className="mt-8 mb-2 text-lg font-medium text-slate-800">
+                {children}
+              </h3>
+            ),
+
+            h4: ({ children }) => (
+              <h4 className="mt-6 mb-2 text-sm font-semibold uppercase tracking-wide text-slate-600">
+                {children}
+              </h4>
+            ),
+
             p: ({ children }) => {
               const processNode = (node: React.ReactNode) => {
                 if (typeof node !== 'string') {
