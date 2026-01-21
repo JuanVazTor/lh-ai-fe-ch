@@ -24,7 +24,14 @@ function App() {
           />
         </div>
         <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6 text-slate-600">
-          <DetailPanel citation={selectedCitation} result={selectedResult} />
+          <DetailPanel 
+            citation={selectedCitation} 
+            result={selectedResult}
+            onClearSelection={() => {
+              setSelectedCitation(null);
+              setSelectedResult(null);
+            }}
+          />
         </div>
       </main>
     </div>

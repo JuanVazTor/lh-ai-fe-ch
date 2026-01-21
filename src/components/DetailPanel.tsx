@@ -1,21 +1,35 @@
+import { useEffect, useRef } from 'react';
 import { Citation, VerificationResult } from '../types';
 
 interface DetailPanelProps {
   citation: Citation | null;
   result: VerificationResult | null;
+  onClearSelection: () => void;
 }
 
-export function DetailPanel({ citation, result }: DetailPanelProps) {
+export function DetailPanel({ citation, result, onClearSelection }: DetailPanelProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
+        onClearSelection();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClearSelection]);
   if (!citation || !result) {
     return (
-      <div>
+      <div ref={panelRef}>
         <p>Click on a citation to see verification details.</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div ref={panelRef}>
       <h2 className="text-base font-semibold text-slate-900 tracking-tight mb-4">Citation Details</h2>
 
       <div className="mb-4">
