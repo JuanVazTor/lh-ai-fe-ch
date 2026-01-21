@@ -23,7 +23,7 @@ function App() {
             selectedCitationId={selectedCitation?.id || null}
           />
         </div>
-        <div>
+        <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6 text-slate-600">
           <DetailPanel citation={selectedCitation} result={selectedResult} />
         </div>
       </main>
