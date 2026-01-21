@@ -32,6 +32,10 @@ export function BriefViewer({
       <div className="prose prose-slate max-w-none">
         <ReactMarkdown
           components={{
+            hr: () => (
+              <hr className="my-8 border-slate-300" />
+            ),
+
             h1: ({ children }) => (
               <h1 className="mt-12 mb-4 text-2xl font-semibold text-slate-900 tracking-tight">
                 {children}

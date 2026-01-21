@@ -13,30 +13,40 @@ export function CitationMarker({
   isSelected,
   onClick,
 }: CitationMarkerProps) {
-    const severity = result?.severity ?? 'none';
+  const severity = result?.severity ?? 'none';
 
-    const colorClasses =
-      severity === 'critical'
-      ? 'bg-red-100 text-red-800 hover:bg-red-200 focus:ring-red-400'
-      : severity === 'warning'
-      ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 focus:ring-yellow-400'
-      : 'bg-green-100 text-green-800 hover:bg-green-200 focus:ring-green-400';
+  const stylesBySeverity = {
+    critical: {
+      base: 'bg-red-100 text-red-800 hover:bg-red-200',
+      border: 'border-red-400',
+    },
+    warning: {
+      base: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200',
+      border: 'border-yellow-400',
+    },
+    none: {
+      base: 'bg-green-100 text-green-800 hover:bg-green-200',
+      border: 'border-green-400',
+    },
+  };
 
-    return (
-        <button
-        type="button"
-        onClick={onClick}
-        className={`
-            inline-flex items-center rounded-md
-            px-1.5 py-0.5 text-sm font-medium
-            transition-colors duration-150
-            focus:outline-none focus:ring-2 focus:ring-offset-1
-            ${colorClasses}
-            ${isSelected ? 'ring-2 ring-slate-900 ring-offset-1' : ''}
-        `}
-        >
-        {citation.text}
-        </button>
-    );
+  const { base, border } = stylesBySeverity[severity];
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`
+        inline-flex items-center rounded-md
+        px-1.5 py-0.5 text-sm font-medium
+        transition-colors duration-150
+        focus:outline-none
+        ${base}
+        ${isSelected ? `border-2 ${border}` : 'border'}
+      `}
+    >
+      {citation.text}
+    </button>
+  );
+
 }
-
