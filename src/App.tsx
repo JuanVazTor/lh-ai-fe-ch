@@ -14,17 +14,19 @@ function App() {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ flex: 1 }}>
-        <BriefViewer
-          brief={sampleBrief}
-          onCitationClick={handleCitationClick}
-          selectedCitationId={selectedCitation?.id || null}
-        />
-      </div>
-      <div style={{ width: '400px', borderLeft: '1px solid black', padding: '10px' }}>
-        <DetailPanel citation={selectedCitation} result={selectedResult} />
-      </div>
+    <div className="min-h-screen bg-slate-100">
+      <main className="max-w-4xl mx-auto px-6 py-10">
+        <div>
+          <BriefViewer
+            brief={sampleBrief}
+            onCitationClick={handleCitationClick}
+            selectedCitationId={selectedCitation?.id || null}
+          />
+        </div>
+        <div>
+          <DetailPanel citation={selectedCitation} result={selectedResult} />
+        </div>
+      </main>
     </div>
   );
 }
