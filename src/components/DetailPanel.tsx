@@ -16,72 +16,72 @@ export function DetailPanel({ citation, result }: DetailPanelProps) {
 
   return (
     <div>
-      <h2>Citation Details</h2>
+      <h2 className="text-base font-semibold text-slate-900 tracking-tight mb-4">Citation Details</h2>
 
-      <div>
-        <strong>Citation:</strong>
-        <p>{citation.text}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Citation:</h3>
+        <p className="text-sm">{citation.text}</p>
       </div>
 
-      <div>
-        <strong>Case Name:</strong>
-        <p>{citation.caseName}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Case Name:</h3>
+        <p className="text-sm">{citation.caseName}</p>
       </div>
 
-      <div>
-        <strong>Reporter:</strong>
-        <p>{citation.reporter}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Reporter:</h3>
+        <p className="text-sm">{citation.reporter}</p>
       </div>
 
       {citation.pinCite && (
-        <div>
-          <strong>Pin Cite:</strong>
-          <p>{citation.pinCite}</p>
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold text-slate-900">Pin Cite:</h3>
+          <p className="text-sm">{citation.pinCite}</p>
         </div>
       )}
 
-      <div>
-        <strong>Year:</strong>
-        <p>{citation.year}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Year:</h3>
+        <p className="text-sm">{citation.year}</p>
       </div>
 
-      <hr />
+      <hr className='mb-4' />
 
-      <h2>Verification Result</h2>
+      <h2 className="text-base font-semibold text-slate-900 tracking-tight mb-4">Verification Result</h2>
 
-      <div>
-        <strong>Status:</strong>
-        <p>{result.status}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Status:</h3>
+        <p className="text-sm">{result.status}</p>
       </div>
 
-      <div>
-        <strong>Severity:</strong>
-        <p>{result.severity}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Severity:</h3>
+        <p className="text-sm">{result.severity}</p>
       </div>
 
-      <div>
-        <strong>Message:</strong>
-        <p>{result.message}</p>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Message:</h3>
+        <p className="text-sm">{result.message}</p>
       </div>
 
       {result.details?.expectedQuote && (
-        <div>
-          <strong>Quote in Brief:</strong>
-          <p>{result.details.expectedQuote}</p>
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold text-slate-900">Quote in Brief:</h3>
+          <p className="text-sm">{result.details.expectedQuote}</p>
         </div>
       )}
 
       {result.details?.actualQuote && (
-        <div>
-          <strong>Actual Quote from Source:</strong>
-          <p>{result.details.actualQuote}</p>
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold text-slate-900">Actual Quote from Source:</h3>
+          <p className="text-sm">{result.details.actualQuote}</p>
         </div>
       )}
 
       {result.details?.treatmentHistory && (
-        <div>
-          <strong>Treatment History:</strong>
-          <p>{result.details.treatmentHistory}</p>
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold text-slate-900">Treatment History:</h3>
+          <p className="text-sm">{result.details.treatmentHistory}</p>
         </div>
       )}
     </div>
