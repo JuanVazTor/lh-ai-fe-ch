@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-100">
       <main className="max-w-4xl mx-auto px-6 py-10">
-        <div>
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
           <BriefViewer
             brief={sampleBrief}
             onCitationClick={handleCitationClick}
