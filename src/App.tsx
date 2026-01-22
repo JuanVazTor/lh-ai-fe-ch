@@ -1,22 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BriefViewer } from './components/BriefViewer';
 import { BriefSkeleton } from './components/skeletons/BriefSkeleton';
 import { DetailPanel } from './components/DetailPanel';
 import { DetailPanelSkeleton } from './components/skeletons/DetailPanelSkeleton';
-import { sampleBrief } from './data/sampleBrief';
+import { useFetchBrief } from './hooks/useFetchBrief';
 import { Citation, VerificationResult } from './types';
 
 function App() {
-  const [isLoadingBrief, setIsLoadingBrief] = useState(true);
+  const { brief, isLoading, error } = useFetchBrief();
   const [isLoadingDetail, setIsLoadingDetail] = useState(false);
 
   const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);
   const [selectedResult, setSelectedResult] = useState<VerificationResult | null>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoadingBrief(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleCitationClick = (citation: Citation, result: VerificationResult) => {
     setIsLoadingDetail(true);
@@ -79,12 +74,22 @@ function App() {
 
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-          {isLoadingBrief ? <BriefSkeleton /> : (
+          {isLoading ? (
+            <BriefSkeleton />
+          ) : error ? (
+            <div className="text-center py-8">
+              <p className="text-red-600 font-medium">Error: {error}</p>
+            </div>
+          ) : brief ? (
             <BriefViewer
-              brief={sampleBrief}
+              brief={brief}
               onCitationClick={handleCitationClick}
               selectedCitationId={selectedCitation?.id || null}
             />
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-slate-600">No brief data available</p>
+            </div>
           )}
         </div>
       </main>
