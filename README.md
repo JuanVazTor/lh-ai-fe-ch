@@ -8,19 +8,47 @@ Trusted Hand verifies citations in legal briefs. Lawyers upload a document, and 
 
 This starter shows the **annotated document view**—where users scroll through their brief, see flags on problematic citations, and click to understand what's wrong.
 
-## Your Task
+---
 
-The app works. It's just... rough.
+## Implemented Features
 
-- The brief content is **markdown**, but it's rendered as plain text
-- No visual design (system fonts, no spacing, no color system)
-- No interactions (no hover states, no transitions, no animations)
-- Poor layout (edge-to-edge content, always-visible sidebar)
-- No polish (no loading states, no empty states, no keyboard navigation)
+The app has been enhanced to feel like a polished product, focusing on readability, interaction, and responsiveness.
 
-**Make it feel like a product lawyers would trust and enjoy using.**
+![Texto alternativo](src/images/app.png)
 
-## Getting Started
+### ✅ Features Completed
+
+1. **Basic Style**
+   - Applied Tailwind CSS to structure layout and style text.
+   - Converted inline CSS to Tailwind classes for consistency.
+
+2. **Markdown Rendering**
+   - Integrated `react-markdown` to render brief content correctly.
+   - Styled headings (h1–h4), blockquotes, lists, and emphasis for clarity.
+
+3. **Citation Interaction**
+   - Created `CitationMarker` component for `[[CITATION:n]]` markers.
+   - Clicking a citation opens the **DetailPanel** on the right side.
+   - DetailPanel shows verification info: case name, status, severity.
+   - Close button (X) hides the panel and returns to normal view.
+
+4. **Loading State**
+   - Added skeleton screens using `react-loading-skeleton`.
+   - Local state manages loading for brief content and detail panel.
+
+5. **API Call Simulation**
+   - `useFetchBrief` hook simulates fetching data with delay.
+   - Supports error simulation (`simulate = "error"`) and retry logic.
+   - Demonstrates different error states after multiple retries.
+
+6. **Header Implementation**
+   - Header with menu hamburger and share icons (click shows alert).
+   - Icons imported from **Lucide React**.
+   - Responsive layout styled with Tailwind CSS.
+
+---
+
+## Installation and Setup
 
 ```bash
 npm install
@@ -29,52 +57,31 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) to see the current state.
 
+
+## Libraries Installed
+
+- `react-markdown` → Markdown rendering  
+- `react-loading-skeleton` → Loading placeholders  
+- `@tailwindcss/typography` → Enhanced typography  
+- `lucide-react` → Icons for header and buttons  
+
 ## Tech Stack
 
-**Provided:**
-- Vite + React 18 + TypeScript
-- Tailwind CSS
+- Vite + React 18 + TypeScript + Tailwind CSS  
 
-**Allowed:**
-- Markdown rendering libraries (react-markdown, marked, etc.)
-- Animation libraries (Framer Motion, React Spring, etc.)
-- Icon libraries (Lucide, Heroicons, etc.)
-- Utility libraries (clsx, date-fns, etc.)
+---
 
-**Not Allowed:**
-- UI component libraries (shadcn/ui, Material UI, Chakra, Radix, Ant Design)
-- CSS frameworks with pre-built components (Bootstrap, Bulma)
+## How It Works
 
-We want to see *your* design sensibilities, not a library's defaults.
+1. Brief content loads with skeletons during fetching.  
+2. Markdown content is rendered with styled headings, lists, and blockquotes.  
+3. Citation markers appear inline; clicking opens the **DetailPanel** with verification details.  
+4. DetailPanel can be closed using the X button to return to normal state.  
+5. API call simulation supports **success**, **error**, and **retry** states.  
 
-## What You Can Do
-
-- Completely redesign the visual appearance
-- Add micro-interactions and animations
-- Restructure components and layout
-- Change the data shape if it helps your design
-- Add features beyond the minimum
-
-## What We're Evaluating
-
-### Visual Design
-Typography choices, spacing rhythm, color usage, visual hierarchy. Can you make dense legal information feel approachable without dumbing it down?
-
-### Interaction Design
-Hover states, transitions, micro-animations, action feedback. Does clicking a flag feel crafted and responsive?
-
-### Edge Cases
-Empty states, loading states, error handling, long content. Did you think beyond the happy path?
-
-### Performance Awareness
-Are interactions snappy? Did you avoid unnecessary re-renders? Lawyers use this under deadline pressure—sluggishness erodes trust.
-
-### Creative Additions
-What did you add that we didn't ask for? Keyboard shortcuts? A mini-map? Filtering? This shows product thinking—whether you can see what a user would actually want.
+---
 
 ## Sample Data
-
-The starter includes a fictional motion to dismiss with 6 citations. The brief content is **markdown-formatted** with headings, lists, blockquotes, and emphasis. Citation markers appear as `[[CITATION:n]]` in the text—you'll need to handle rendering markdown while replacing these markers with clickable citation elements.
 
 | Citation | Status | Severity |
 |----------|--------|----------|
@@ -85,43 +92,58 @@ The starter includes a fictional motion to dismiss with 6 citations. The brief c
 | Basic Inc. v. Levinson | Overruled | Warning |
 | Tellabs, Inc. v. Makor Issues & Rights | Valid | None |
 
-## Deliverables
-
-### 1. GitHub Repository
-- Fork this repo
-- Clear commit history showing your process
-- Update this README with setup instructions for your version
-
-### 2. Design Rationale (500 words max)
-What decisions did you make and why? What trade-offs did you consider? What would you do with more time?
-
-### 3. Loom Video (3-5 minutes)
-Walk us through the experience as a user would encounter it. Highlight 1-2 technical decisions you're proud of. Show us something we might miss just clicking around.
-
-## Time Budget
-
-**4-6 hours.** Stop there. We mean it.
-
-If you're past 6 hours, stop. A beautiful, polished subset beats a complete but rough implementation. Scope down if needed—we'd rather see taste than sprawl.
+---
 
 ## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── BriefViewer.tsx    # Renders brief with citation highlights
-│   └── DetailPanel.tsx    # Shows verification details for selected citation
+│   ├── BriefViewer.tsx        # Renders brief with markdown and interactive citations
+│   ├── CitationMarker.tsx     # Inline clickable citation component
+│   └── DetailPanel.tsx        # Shows verification details for selected citation
 ├── data/
-│   └── sampleBrief.ts     # Sample brief and verification results
+│   └── sampleBrief.ts         # Sample brief and verification results
+├── hooks/
+│   └── useFetchBrief.ts       # API call simulation with error handling and loading
 ├── types/
-│   └── index.ts           # TypeScript interfaces
-├── App.tsx                # Main app component
-└── main.tsx               # Entry point
+│   └── index.ts               # TypeScript interfaces
+├── App.tsx                    # Main app component (layout, header, cards)
+└── main.tsx                   # Entry point
 ```
+
+---
+
+## Commits Summary
+
+- Added skeletons for loading states.  
+- Added markdown rendering and styling.  
+- Implemented interactive citation markers with DetailPanel toggle.  
+- Added header with icons and menu interactions.  
+- Simulated API calls with errors and retry logic.  
+- Refactored styles to Tailwind CSS.  
+- Updated layout and responsiveness of brief and DetailPanel.  
+
+---
+
+## Future Improvements that I would do if I have more time
+
+- Unit testing with **Jest**.  
+- Animations and micro-interactions (Framer Motion, React Spring).  
+- Performance and SEO optimization via Google Lighthouse.  
+- Architecture improvements: BFF, services, controllers, gateways following clean architecture.  
+- Accessibility improvements (ARIA roles, keyboard navigation, focus states).  
+- Event emission for analytics (page views, clicks) to GA/New Relic dashboards.  
+- Logging layer for troubleshooting.  
+- Further refactoring and code improvements.  
+- Custom interface inspired by apps like **Substack** using Google Stitch.  
+
+---
+
+## Design Rationale
+
+The main focus was to transform the rough starter into a **polished, usable interface**. I prioritized **readability**, **interaction design**, and **feedback loops** such as skeletons and clickable citations. The DetailPanel provides clear verification information while loading states and API simulation ensure responsiveness under different scenarios. The header and interactive icons enhance navigation and user feedback. Future work would focus on testing, accessibility, animations, analytics, and further architectural refinements to make this a production-ready experience.
 
 ## Questions?
 
-Reply to the challenge email—we're happy to clarify anything.
-
-Good luck. We're excited to see what you build.
-# lh-ai-fe-ch
+Email-me: conceicaolanai@gmail.com
