@@ -7,7 +7,7 @@ import { useFetchBrief } from './hooks/useFetchBrief';
 import { Citation, VerificationResult } from './types';
 
 function App() {
-  const { brief, isLoading, error } = useFetchBrief();
+  const { brief, isLoading, error, retry } = useFetchBrief();
   const [isLoadingDetail, setIsLoadingDetail] = useState(false);
 
   const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);
@@ -79,6 +79,12 @@ function App() {
           ) : error ? (
             <div className="text-center py-8">
               <p className="text-red-600 font-medium">Error: {error}</p>
+              <button
+                onClick={retry}
+                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Retry
+              </button>
             </div>
           ) : brief ? (
             <BriefViewer
