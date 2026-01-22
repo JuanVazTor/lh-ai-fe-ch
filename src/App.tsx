@@ -1,16 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BriefViewer } from './components/BriefViewer';
+import { BriefSkeleton } from './components/skeletons/BriefSkeleton';
 import { DetailPanel } from './components/DetailPanel';
+import { DetailPanelSkeleton } from './components/skeletons/DetailPanelSkeleton';
 import { sampleBrief } from './data/sampleBrief';
 import { Citation, VerificationResult } from './types';
 
 function App() {
+  const [isLoadingBrief, setIsLoadingBrief] = useState(true);
+  const [isLoadingDetail, setIsLoadingDetail] = useState(false);
+
   const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);
   const [selectedResult, setSelectedResult] = useState<VerificationResult | null>(null);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoadingBrief(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleCitationClick = (citation: Citation, result: VerificationResult) => {
+    setIsLoadingDetail(true);
     setSelectedCitation(citation);
     setSelectedResult(result);
+    
+    setTimeout(() => setIsLoadingDetail(false), 800);
   };
 
   const clearSelection = () => {
@@ -20,7 +33,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-100">
-      {/* Backdrop */}
       {selectedCitation && (
         <div
           onClick={clearSelection}
@@ -28,7 +40,6 @@ function App() {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`fixed right-0 top-0 h-screen w-96 bg-white shadow-2xl z-50 transition-transform duration-300 overflow-y-auto ${
           selectedCitation ? 'translate-x-0' : 'translate-x-full'
@@ -54,21 +65,27 @@ function App() {
               />
             </svg>
           </button>
-          <DetailPanel
-            citation={selectedCitation}
-            result={selectedResult}
-            onClearSelection={clearSelection}
-          />
+          {isLoadingDetail ? (
+            <DetailPanelSkeleton />
+          ) : (
+            <DetailPanel
+              citation={selectedCitation}
+              result={selectedResult}
+              onClearSelection={clearSelection}
+            />
+          )}
         </div>
       </aside>
 
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-          <BriefViewer
-            brief={sampleBrief}
-            onCitationClick={handleCitationClick}
-            selectedCitationId={selectedCitation?.id || null}
-          />
+          {isLoadingBrief ? <BriefSkeleton /> : (
+            <BriefViewer
+              brief={sampleBrief}
+              onCitationClick={handleCitationClick}
+              selectedCitationId={selectedCitation?.id || null}
+            />
+          )}
         </div>
       </main>
     </div>
@@ -76,3 +93,4 @@ function App() {
 }
 
 export default App;
+
