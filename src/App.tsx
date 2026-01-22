@@ -28,11 +28,11 @@ function App() {
   };
 
   const handleMenuClick = () => {
-    console.log('Menu clicked');
+    alert('Menu clicked');
   };
 
   const handleShareClick = () => {
-    console.log('Share clicked');
+    alert('Share clicked');
   };
 
   return (
