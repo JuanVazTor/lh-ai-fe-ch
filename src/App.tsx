@@ -1,31 +1,36 @@
-import { useState } from 'react';
-import { BriefViewer } from './components/BriefViewer';
-import { DetailPanel } from './components/DetailPanel';
-import { sampleBrief } from './data/sampleBrief';
-import { Citation, VerificationResult } from './types';
+import React from 'react';
+import { Toaster } from 'sonner';
+import { BriefPage } from './features/brief/BriefPage.tsx';
 
-function App() {
-  const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);
-  const [selectedResult, setSelectedResult] = useState<VerificationResult | null>(null);
+const TOAST_DURATION_MS = 2200;
+const TOAST_OFFSET = { top: 'var(--space-5)', right: 'var(--space-5)' };
+const TOAST_MOBILE_OFFSET = {
+  top: 'var(--space-4)',
+  right: 'var(--space-4)',
+  left: 'var(--space-4)',
+};
 
-  const handleCitationClick = (citation: Citation, result: VerificationResult) => {
-    setSelectedCitation(citation);
-    setSelectedResult(result);
-  };
-
+function App(): JSX.Element {
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ flex: 1 }}>
-        <BriefViewer
-          brief={sampleBrief}
-          onCitationClick={handleCitationClick}
-          selectedCitationId={selectedCitation?.id || null}
-        />
-      </div>
-      <div style={{ width: '400px', borderLeft: '1px solid black', padding: '10px' }}>
-        <DetailPanel citation={selectedCitation} result={selectedResult} />
-      </div>
-    </div>
+    <React.Fragment>
+      <BriefPage />
+      <Toaster
+        position="top-right"
+        theme="light"
+        closeButton={false}
+        duration={TOAST_DURATION_MS}
+        offset={TOAST_OFFSET}
+        mobileOffset={TOAST_MOBILE_OFFSET}
+        toastOptions={{
+          classNames: {
+            toast: 'toast',
+            title: 'toast-title',
+            description: 'toast-description',
+            icon: 'toast-icon',
+          },
+        }}
+      />
+    </React.Fragment>
   );
 }
 

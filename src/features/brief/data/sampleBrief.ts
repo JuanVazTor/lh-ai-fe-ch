@@ -1,4 +1,4 @@
-import { Brief } from '../types';
+import { Brief } from '../../../types/index.ts';
 
 export const sampleBrief: Brief = {
   id: 'brief-001',
